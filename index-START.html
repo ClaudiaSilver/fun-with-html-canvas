@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+// grab canvas
+const canvas = document.querySelector('#draw');
+// get context
+const ctx = canvas.getContext('2d');
+// set canvas dimensions
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+// settings
+ctx.strokeStyle = '#BADA55'; // colour
+ctx.lineJoin = 'round'; // line join
+ctx.lineCap = 'round'; // line end
+ctx.lineWidth = 25;
+
+let isDrawing = false; // this toggles the 'pen' which is off as default 
+let lastX = 0;
+let lastY = 0;
+let hue = 0;
+
+function draw(e) {
+  // this toggles the pen: it's only 'on' on mousedown
+  if(!isDrawing) return // stops function from running if user not moused down
+  console.log(e);
+  // this sets up the drawing process
+  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; // this makes it rainbow-coloured
+  ctx.beginPath();
+  // start from 
+  ctx.moveTo(lastX, lastY);
+  // go to
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke(); // this initiates the drawing
+  // update vars
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+  // same as:
+  // lastX = e.offsetX;
+  // lastY = e.offsetY;
+  hue++; // this changes the saturation (i.e. colour)
+}
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+
+
+}); 
+
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', () => isDrawing = false); 
+canvas.addEventListener('mouseout', () => isDrawing = false); // mouse leaves window
+
+
+
+
+
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
