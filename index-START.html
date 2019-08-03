@@ -5,20 +5,30 @@
   <title>HTML5 Canvas</title>
 </head>
 <body>
-<canvas id="draw" width="800" height="800"></canvas>
+  <div id="background">
+    <div class="sliders">
+      <input type="range" min="1" max="100" value="50" id="line-width"> 
+      <label for "line-width">line-width</label>
+    </div>
+    <div id="canvas-div">
+      <canvas id="draw" width="900px" height="600px"></canvas>
+    </div>
+  </div>
+
 <script>
 // grab canvas
 const canvas = document.querySelector('#draw');
 // get context
 const ctx = canvas.getContext('2d');
 // set canvas dimensions
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 900;
+canvas.height = 600;
 // settings
 ctx.strokeStyle = '#BADA55'; // colour
 ctx.lineJoin = 'round'; // line join
 ctx.lineCap = 'round'; // line end
-ctx.lineWidth = 25;
+ctx.lineWidth = 10;
+ctx.globalCompositeOperation = 'source-over'; //blend mode 
 
 let isDrawing = false; // this toggles the 'pen' which is off as default 
 let lastX = 0;
@@ -43,6 +53,10 @@ function draw(e) {
   // lastX = e.offsetX;
   // lastY = e.offsetY;
   hue++; // this changes the saturation (i.e. colour)
+  if(hue >= 360) {
+    hue = 0;
+  }
+
 }
 canvas.addEventListener('mousedown', (e) => {
   isDrawing = true;
@@ -55,9 +69,12 @@ canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', () => isDrawing = false); 
 canvas.addEventListener('mouseout', () => isDrawing = false); // mouse leaves window
 
+// change line width using slider
 
-
-
+const line = document.getElementById("line-width");
+line.addEventListener("input", function() {
+  ctx.lineWidth = this.value;
+})
 
 
 </script>
@@ -66,6 +83,35 @@ canvas.addEventListener('mouseout', () => isDrawing = false); // mouse leaves wi
   html, body {
     margin: 0;
   }
+
+  #background {
+    background-color: #444b6e;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: space-between;
+  }
+
+  #canvas-div {
+    margin: auto;
+  }
+
+  #draw {
+    background-color: white;
+    width: 900px;
+    height: 600px;
+  }
+
+  #line-width {
+    display: block;
+  }
+
+  .sliders {
+    color: white;
+    background-color: #dbb1bc;
+  }
+
 </style>
 
 </body>
