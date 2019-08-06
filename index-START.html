@@ -12,27 +12,27 @@
         <p>Adjust width</p>
         <div class="range"> 
         <input type="range" min="1" max="100" value="50" id="line-width"> 
-        <label for "line-width">from 1px to 100px</label>
+        <label>from 1px to 100px</label>
       </div>
       <p>Choose blend mode</p>
       <div class="radio-div">
         <div class="radio">
-          <input type="radio" value="blend" name="blend-mode" id="blend-mode1">
-          <label for "blend-mode1">none</label>
+          <input type="radio" value="none" name="blend-mode" id="source-over">
+          <label>none</label>
         </div>
         <div class="radio">
-          <input type="radio" value="blend" name="blend-mode" id="blend-mode2">
-          <label for "blend-mode1">multiply</label>
+          <input type="radio" value="multiply" name="blend-mode" id="blend-mode2">
+          <label>multiply</label>
         </div>
         <div class="radio">
-          <input type="radio" value="blend" name="blend-mode" id="blend-mode3">
-          <label for "blend-mode1">overlay</label>
+          <input type="radio" value="overlay" name="blend-mode" id="blend-mode3">
+          <label>overlay</label>
         </div>
       </div>
       <div class="button"><button class="reset">Reset</button></div>
     </div>
     <div id="canvas-div">
-      <canvas id="draw" width="900px" height="600px"></canvas>
+      <canvas id="draw" width="1100px" height="800px"></canvas>
     </div>
   </div>
 
@@ -42,8 +42,8 @@ const canvas = document.querySelector('#draw');
 // get context
 const ctx = canvas.getContext('2d');
 // set canvas dimensions
-canvas.width = 900;
-canvas.height = 600;
+canvas.width = 1100;
+canvas.height = 800;
 // settings
 ctx.strokeStyle = '#BADA55'; // colour
 ctx.lineJoin = 'round'; // line join
@@ -98,6 +98,10 @@ line.addEventListener("change", function() {
 })
 
 // change blend mode using radio buttons
+const none = document.getElementById("source-over");
+none.addEventListener("change", function() {
+
+})
 
 // reset canvas with button
 
@@ -108,7 +112,7 @@ line.addEventListener("change", function() {
   html, body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   #background {
@@ -117,13 +121,13 @@ line.addEventListener("change", function() {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 
   #draw {
     background-color: white;
-    width: 900px;
-    height: 600px;
+    width: 1100px;
+    height: 800px;
     box-shadow: 2px 2px 2px #005582;
   }
 
@@ -131,8 +135,6 @@ line.addEventListener("change", function() {
     margin: 0.4rem;
     display:inline-block;
   }
-
-  
 
   p {
     font-size: 25px;
@@ -171,7 +173,6 @@ line.addEventListener("change", function() {
     box-shadow: 5px 5px 5px #005582;
     align-items: center;
     justify-content: space-evenly;
-   
   }
 
 </style>
